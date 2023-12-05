@@ -1,4 +1,5 @@
 import { Product } from './App'
+import Image from './Image'
 
 type Props = {
   product: Product
@@ -12,7 +13,8 @@ export default function ProductComponent({ product }: Props) {
 
   return (
     <section>
-      <h2>{product.title}</h2>
+      <Image className="max-h-80 aspect-video bg-center bg-contain bg-no-repeat mb-5" image={product.image} />
+      <h2 className="text-3xl font-bold">{product.title}</h2>
     </section>
   )
 }

@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { ProductContext } from "./App"
+import Image from "./Image"
 import { fetchProduct } from "./api"
 
 
@@ -19,7 +20,7 @@ export default function ProductsComponent() {
       {
         products.map((p: any) => (
           <div key={p.id} className="p-5 flex flex-col justify-between cursor-pointer" onClick={async () => handleSelectProduct(p.id)}>
-            <div className="aspect-video bg-left bg-contain bg-no-repeat mb-5" style={{ backgroundImage: `url(${p.image})` }}></div>
+            <Image className="aspect-video bg-left bg-contain bg-no-repeat mb-5" image={p.image} />
             <h3 className="text-xl font-bold h-3/6">{p.title.length > 45 ? `${p.title.substring(0, 45)}...` : p.title}</h3>
           </div>
         ))
