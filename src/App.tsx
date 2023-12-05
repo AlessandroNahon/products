@@ -1,6 +1,7 @@
 import { useEffect, createContext, useState } from "react";
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 
@@ -38,6 +39,10 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
+      element: <Navigate to="/products" replace />,
+    },
+    {
+      path: "/products",
       element: <ProductsComponent />,
     },
     {
