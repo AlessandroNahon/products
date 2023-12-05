@@ -1,15 +1,33 @@
 import { useEffect, createContext, useState } from "react";
-import Products from "./Products";
+import ProductsComponent from "./Products";
+import { fetchProducts } from "./api";
 
-export const ProductContext = createContext<any>([]);
+export type Product = {
+  id: number,
+  title: string,
+  price: number,
+  description: string,
+  category: string,
+  image: string,
+  rating: {
+    count: number,
+    rate: number
+  },
+  rate: number,
+  count: number
+}
+
+type ProductContextType = {
+  products: Product[]
+  selectProduct: (product: Product | {}) => void
+  selectedProduct: Product | {}
+}
+
+export const ProductContext = createContext<ProductContextType>({} as ProductContextType);
 
 function App() {
-  const [products, setProducts] = useState<any>([])
-
-  async function fetchProducts() {
-    const res = await fetch('https://fakestoreapi.com/products')
-    return await res.json()
-  }
+  const [products, setProducts] = useState<Product[] | []>([])
+  const [selectedProduct, setSelectedProduct] = useState<Product | {}>({})
 
   useEffect(() => {
     (async function call() {
@@ -18,9 +36,9 @@ function App() {
   }, [])
 
   return (
-    <ProductContext.Provider value={{ products }}>
+    <ProductContext.Provider value={{ products, selectProduct: setSelectedProduct, selectedProduct }}>
       <main>
-        <Products />
+        <ProductsComponent />
       </main>
     </ProductContext.Provider>
 
