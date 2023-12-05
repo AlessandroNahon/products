@@ -12,7 +12,7 @@ export default function ProductsComponent() {
 
   async function handleSelectProduct(id: number) {
     selectProduct(await fetchProduct(id))
-    navigate(`/product/${id}`);
+    navigate(`/product/${id}`)
   }
 
   return (

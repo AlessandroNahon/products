@@ -5,12 +5,8 @@ import Image from './Image'
 import { fetchProduct } from './api'
 import { useParams } from 'react-router-dom'
 
-type Props = {
-  product: Product
-}
-
-export default function ProductComponent({ product }: Props) {
-  const { selectProduct } = useContext(ProductContext)
+export default function ProductComponent() {
+  const { selectProduct, selectedProduct } = useContext(ProductContext)
   const { id } = useParams();
 
   useEffect(() => {
@@ -19,9 +15,11 @@ export default function ProductComponent({ product }: Props) {
     })()
   }, [id, selectProduct])
 
-  if (Object.keys(product).length === 0 && product.constructor === Object) {
+  if (Object.keys(selectedProduct).length === 0 && selectedProduct.constructor === Object) {
     return <></>
   }
+
+  const product = (selectedProduct as Product);
 
   return (
     <section className="sm:p-18 md:p-15 lg:p-20">

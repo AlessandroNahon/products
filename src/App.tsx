@@ -47,7 +47,7 @@ function App() {
     },
     {
       path: "/product/:id",
-      element: <ProductComponent product={selectedProduct as Product} />
+      element: <ProductComponent />
     }
   ]);
 
