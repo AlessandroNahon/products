@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, createContext, useState } from "react";
+import Products from "./Products";
+
+export const ProductContext = createContext<any>([]);
 
 function App() {
+  const [products, setProducts] = useState<any>([])
+
+  async function fetchProducts() {
+    const res = await fetch('https://fakestoreapi.com/products')
+    return await res.json()
+  }
+
+  useEffect(() => {
+    (async function call() {
+      setProducts(await fetchProducts())
+    })()
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProductContext.Provider value={{ products }}>
+      <main>
+        <Products />
+      </main>
+    </ProductContext.Provider>
+
   );
 }
 
