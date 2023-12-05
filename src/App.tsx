@@ -1,5 +1,11 @@
 import { useEffect, createContext, useState } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
 import ProductsComponent from "./Products";
+import ProductComponent from "./Product";
 import { fetchProducts } from "./api";
 
 export type Product = {
@@ -29,6 +35,17 @@ function App() {
   const [products, setProducts] = useState<Product[] | []>([])
   const [selectedProduct, setSelectedProduct] = useState<Product | {}>({})
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <ProductsComponent />,
+    },
+    {
+      path: "/product/:id",
+      element: <ProductComponent product={selectedProduct as Product} />
+    }
+  ]);
+
   useEffect(() => {
     (async function call() {
       setProducts(await fetchProducts())
@@ -38,7 +55,7 @@ function App() {
   return (
     <ProductContext.Provider value={{ products, selectProduct: setSelectedProduct, selectedProduct }}>
       <main>
-        <ProductsComponent />
+        <RouterProvider router={router} />
       </main>
     </ProductContext.Provider>
 
