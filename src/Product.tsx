@@ -4,9 +4,10 @@ import { Product, ProductContext } from './App'
 import Image from './Image'
 import { fetchProduct } from './api'
 import { useParams } from 'react-router-dom'
+import ProductOptionComponent from './ProductOption'
 
 export default function ProductComponent() {
-  const { selectProduct, selectedProduct } = useContext(ProductContext)
+  const { selectProduct, selectedProduct, selectedOption } = useContext(ProductContext)
   const { id } = useParams();
 
   const product = (selectedProduct as Product);
@@ -22,9 +23,15 @@ export default function ProductComponent() {
   }
 
   return (
-    <section className="sm:p-18 md:p-15 lg:p-20">
-      <Image className="max-h-80 aspect-video bg-center bg-contain bg-no-repeat mb-5" image={product.image} />
-      <h2 className="text-3xl font-bold">{product.title}</h2>
+    <section className="flex justify-between sm:p-18 md:p-15 lg:p-20">
+      <div className='w-2/5'>
+        <Image className="aspect-square bg-center bg-cover bg-no-repeat mb-5" image={selectedOption.image} />
+      </div>
+      <div className='w-2/5'>
+        <h2 className="text-2xl font-bold mb-5">{product.title}</h2>
+        <h3 className="text-xl mb-10">${product.price}</h3>
+        <ProductOptionComponent />
+      </div>
     </section>
   )
 }

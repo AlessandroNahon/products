@@ -4,6 +4,7 @@ import { ProductContext, ProductContextType, routes } from './App';
 import { products } from './testData'
 
 import { RouterProvider, createMemoryRouter } from 'react-router-dom'
+import { mockOptions } from './api';
 
 const customRender = (ui: any, productContext: ProductContextType) => {
   return render(
@@ -35,10 +36,18 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
+const selectProduct = jest.fn()
+const selectOption = jest.fn()
+const selectSize = jest.fn()
+
+const defaultState: ProductContextType = { products, selectProduct, selectedProduct: [], selectOption, selectedOption: mockOptions[0], selectSize, selectedSize: mockOptions[0].availableSizes[0] }
+
+const selectedProductState = { products, selectProduct, selectedProduct: products[0], selectOption, selectedOption: mockOptions[0], selectSize, selectedSize: mockOptions[0].availableSizes[0] }
+
 describe('App renders', () => {
 
   it('lands on root route and then reroutes to products page', () => {
-    customRender(<RouterProvider router={router} />, { products, selectProduct: () => null, selectedProduct: [] })
+    customRender(<RouterProvider router={router} />, defaultState)
     act(() => {
       router.navigate('/')
     })
@@ -46,8 +55,7 @@ describe('App renders', () => {
   });
 
   it('displays the product on the page', () => {
-    const selectProduct = jest.fn();
-    customRender(<RouterProvider router={router} />, { products, selectProduct, selectedProduct: [] })
+    customRender(<RouterProvider router={router} />, defaultState)
 
     const product1 = within(screen.getByTestId('section')).getByTestId('product-1').lastChild?.textContent
 
@@ -56,12 +64,11 @@ describe('App renders', () => {
 })
 
 describe('Select product', () => {
-  const selectProduct = jest.fn();
-  customRender(<RouterProvider router={router} />, { products, selectProduct, selectedProduct: products[0] })
 
+  customRender(<RouterProvider router={router} />, selectedProductState)
 
   it('routes to the product page with the right id', async () => {
-    customRender(<RouterProvider router={router} />, { products, selectProduct: () => null, selectedProduct: products[0] })
+    customRender(<RouterProvider router={router} />, selectedProductState)
 
     expect(router.state.location.pathname).toEqual('/products')
 
