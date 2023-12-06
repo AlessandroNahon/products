@@ -11,7 +11,8 @@ export default function ProductOptionComponent(): ReactElement {
 
   useEffect(() => {
     selectOption(mockOptions[0])
-  }, [selectOption])
+    selectSize('')
+  }, [selectOption, selectSize])
 
   return (
     <div>
