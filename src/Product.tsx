@@ -9,17 +9,17 @@ export default function ProductComponent() {
   const { selectProduct, selectedProduct } = useContext(ProductContext)
   const { id } = useParams();
 
+  const product = (selectedProduct as Product);
+
   useEffect(() => {
     (async function call() {
-      if (id) selectProduct(await fetchProduct(parseInt(id)))
+      if (id && id !== `${product.id}`) selectProduct(await fetchProduct(parseInt(id)))
     })()
-  }, [id, selectProduct])
+  }, [id, selectProduct, product])
 
-  if (Object.keys(selectedProduct).length === 0 && selectedProduct.constructor === Object) {
+  if (Object.keys(product).length === 0 && product.constructor === Object) {
     return <></>
   }
-
-  const product = (selectedProduct as Product);
 
   return (
     <section className="sm:p-18 md:p-15 lg:p-20">
