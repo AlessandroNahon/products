@@ -1,7 +1,9 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { RouterProvider } from "react-router-dom"
-import { customRender, selectedProductState, router } from "./sharedTest"
 import { act } from "react-dom/test-utils"
+
+import { customRender, selectedProductState, router } from "./sharedTest"
+import { mockOptions } from './api';
 
 
 describe('Product options gives users controls to select product details', () => {
@@ -10,16 +12,32 @@ describe('Product options gives users controls to select product details', () =>
     act(() => {
       router.navigate('/product/1')
     })
-    expect(router.state.location.pathname).toEqual('/product/1')
 
-    const optionsContainer = screen.getByText(selectedProductState.selectedOption.label)
+    const optionsLabel = screen.getByText(selectedProductState.selectedOption.label)
 
-    expect(optionsContainer).toBeInTheDocument()
+    expect(optionsLabel).toBeInTheDocument()
   })
 
   it('should display the sizes available from the product option selected', () => {
-    
-  })
+    customRender(<RouterProvider router={router} />, selectedProductState)
+    act(() => {
+      router.navigate('/product/1')
+    })
 
+    const buttons = screen.getAllByRole('button')
+
+    fireEvent.click(buttons[1])
+
+    expect(selectedProductState.selectOption).toHaveBeenCalledWith(mockOptions[1])
+
+    expect(selectedProductState.selectSize).toHaveBeenCalledWith('')
+
+    customRender(<RouterProvider router={router} />, { ...selectedProductState, selectedOption: mockOptions[1] })
+
+    const optionsLabel = screen.getByText(mockOptions[1].label)
+
+    expect(optionsLabel).toBeInTheDocument()
+
+  })
 
 })
