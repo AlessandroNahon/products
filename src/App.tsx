@@ -20,11 +20,11 @@ export type Product = {
     count: number,
     rate: number
   },
-  rate: number,
-  count: number
+  rate?: number,
+  count?: number
 }
 
-type ProductContextType = {
+export type ProductContextType = {
   products: Product[]
   selectProduct: (product: Product | {}) => void
   selectedProduct: Product | {}
@@ -32,24 +32,25 @@ type ProductContextType = {
 
 export const ProductContext = createContext<ProductContextType>({} as ProductContextType);
 
+export const routes = [
+  {
+    path: "/",
+    element: <Navigate to="/products" replace />,
+  },
+  {
+    path: "/products",
+    element: <ProductsComponent />,
+  },
+  {
+    path: "/product/:id",
+    element: <ProductComponent />
+  }
+]
+const router = createBrowserRouter(routes);
+
 function App() {
   const [products, setProducts] = useState<Product[] | []>([])
   const [selectedProduct, setSelectedProduct] = useState<Product | {}>({})
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Navigate to="/products" replace />,
-    },
-    {
-      path: "/products",
-      element: <ProductsComponent />,
-    },
-    {
-      path: "/product/:id",
-      element: <ProductComponent />
-    }
-  ]);
 
   useEffect(() => {
     (async function call() {
