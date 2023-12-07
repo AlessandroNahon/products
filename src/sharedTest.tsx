@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { render } from '@testing-library/react';
 import {
   ProductContextType,
@@ -39,7 +39,7 @@ export const router = createMemoryRouter(routes, {
   initialIndex: 1,
 });
 
-export const customRender = (ui: any, productContext: ProductContextType) => {
+export const customRender = (ui: ReactElement, productContext: ProductContextType) => {
   return render(
     <ProductContext.Provider value={productContext}>
       {ui}

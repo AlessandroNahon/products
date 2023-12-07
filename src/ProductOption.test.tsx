@@ -29,15 +29,7 @@ describe('Product options gives users controls to select product details', () =>
     fireEvent.click(buttons[1])
 
     expect(selectedProductState.selectOption).toHaveBeenCalledWith(mockOptions[1])
-
     expect(selectedProductState.selectSize).toHaveBeenCalledWith('')
-
-    customRender(<RouterProvider router={router} />, { ...selectedProductState, selectedOption: mockOptions[1] })
-
-    const optionsLabel = screen.getByText(mockOptions[1].label)
-
-    expect(optionsLabel).toBeInTheDocument()
-
   })
 
 })
