@@ -5,8 +5,7 @@ import { act } from "react-dom/test-utils"
 import { customRender, selectedProductState, router } from "./sharedTest"
 import { mockOptions } from './api';
 
-
-describe('Product options gives users controls to select product details', () => {
+describe('ProductOption allows users to select product options', () => {
   it('should display the product options', () => {
     customRender(<RouterProvider router={router} />, selectedProductState)
     act(() => {
@@ -30,6 +29,18 @@ describe('Product options gives users controls to select product details', () =>
 
     expect(selectedProductState.selectOption).toHaveBeenCalledWith(mockOptions[1])
     expect(selectedProductState.selectSize).toHaveBeenCalledWith('')
+  })
+
+  it('should display the unavailable sizes with disabled buttons', () => {
+    customRender(<RouterProvider router={router} />, selectedProductState)
+    act(() => {
+      router.navigate('/product/1')
+    })
+
+    const button = screen.getByText('sm')
+
+    expect(button).toBeDisabled();
+
   })
 
 })
