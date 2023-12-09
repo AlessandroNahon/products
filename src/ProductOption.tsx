@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import { mockOptions } from './api'
-import { ProductOption, Size } from './App'
+import { ProductOption as ProductOptionType, Size } from './App'
 
 import Image from './Image'
 
@@ -8,12 +8,12 @@ const sizes: Size[] = ['xs', 'sm', 'md', 'lg', 'xl']
 
 interface Props {
   selectedSize: Size,
-  selectedOption: ProductOption
-  setSelectedOption: (option: ProductOption) => void
+  selectedOption: ProductOptionType
+  setSelectedOption: (option: ProductOptionType) => void
   setSelectedSize: (size: Size) => void
 }
 
-export default function ProductOptionComponent({ selectedSize, selectedOption, setSelectedOption, setSelectedSize }: Props): ReactElement {
+export default function ProductOption({ selectedSize, selectedOption, setSelectedOption, setSelectedSize }: Props): ReactElement {
   return (
     <div>
       <h3>{selectedOption.label}</h3>

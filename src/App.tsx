@@ -50,7 +50,6 @@ const router = createBrowserRouter(routes);
 const queryClient = new QueryClient()
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
       <main>

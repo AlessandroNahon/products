@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import Image from "./Image"
 import { fetchProducts } from "./api"
 
-export default function ProductsComponent() {
+export default function Products() {
   const { data } = useQuery({ queryKey: ['products'], queryFn: fetchProducts })
   const navigate = useNavigate()
 

@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { Product, ProductOption, Size } from './App'
+import { Product as ProductType, ProductOption as ProductOptionType, Size } from './App'
 import Image from './Image'
 import { fetchProduct, mockOptions } from './api'
 import { useParams } from 'react-router-dom'
-import ProductOptionComponent from './ProductOption'
+import ProductOption from './ProductOption'
 
-export default function ProductComponent() {
-  const [selectedOption, setSelectedOption] = useState<ProductOption>(mockOptions[0])
+export default function Product() {
+  const [selectedOption, setSelectedOption] = useState<ProductOptionType>(mockOptions[0])
   const [selectedSize, setSelectedSize] = useState<Size>('')
 
   const { id } = useParams();
   const { data, isLoading } = useQuery({ queryKey: ['product', id], queryFn: async () => await fetchProduct(id) })
-  const product = (data as Product);
+  const product = (data as ProductType);
 
   if (isLoading) {
     return <div>...Loading</div>
@@ -27,7 +27,7 @@ export default function ProductComponent() {
       <div className='w-2/5'>
         <h2 className="text-2xl font-bold mb-5">{product.title}</h2>
         <h3 className="text-xl mb-10">${product.price}</h3>
-        <ProductOptionComponent selectedOption={selectedOption} setSelectedOption={setSelectedOption} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+        <ProductOption selectedOption={selectedOption} setSelectedOption={setSelectedOption} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
       </div>
     </section>
   )
