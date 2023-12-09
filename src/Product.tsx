@@ -1,25 +1,22 @@
-import { useContext, useEffect } from 'react'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
-import { Product, ProductContext } from './App'
+import { Product, ProductOption, Size } from './App'
 import Image from './Image'
-import { fetchProduct } from './api'
+import { fetchProduct, mockOptions } from './api'
 import { useParams } from 'react-router-dom'
 import ProductOptionComponent from './ProductOption'
 
 export default function ProductComponent() {
-  const { selectProduct, selectedProduct, selectedOption } = useContext(ProductContext)
+  const [selectedOption, setSelectedOption] = useState<ProductOption>(mockOptions[0])
+  const [selectedSize, setSelectedSize] = useState<Size>('')
+
   const { id } = useParams();
+  const { data, isLoading } = useQuery({ queryKey: ['product', id], queryFn: async () => await fetchProduct(id) })
+  const product = (data as Product);
 
-  const product = (selectedProduct as Product);
-
-  useEffect(() => {
-    (async function call() {
-      if (id && id !== `${product.id}`) selectProduct(await fetchProduct(parseInt(id)))
-    })()
-  }, [id, selectProduct, product])
-
-  if (Object.keys(product).length === 0 && product.constructor === Object) {
-    return <></>
+  if (isLoading) {
+    return <div>...Loading</div>
   }
 
   return (
@@ -30,7 +27,7 @@ export default function ProductComponent() {
       <div className='w-2/5'>
         <h2 className="text-2xl font-bold mb-5">{product.title}</h2>
         <h3 className="text-xl mb-10">${product.price}</h3>
-        <ProductOptionComponent />
+        <ProductOptionComponent selectedOption={selectedOption} setSelectedOption={setSelectedOption} selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
       </div>
     </section>
   )

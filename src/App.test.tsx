@@ -1,8 +1,8 @@
 /* eslint-disable testing-library/no-node-access */
-import { act } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 
 import { RouterProvider } from 'react-router-dom'
-import { customRender, defaultState, router } from './sharedTest';
+import { router } from './sharedTest';
 const mockedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
@@ -25,7 +25,7 @@ afterEach(() => {
 describe('App renders', () => {
 
   it('lands on root route and then reroutes to products page', () => {
-    customRender(<RouterProvider router={router} />, defaultState)
+    render(<RouterProvider router={router} />)
     act(() => {
       router.navigate('/')
     })

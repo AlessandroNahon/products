@@ -1,4 +1,3 @@
-import { useEffect, createContext, useState } from "react";
 import {
   createBrowserRouter,
   Navigate,
@@ -7,7 +6,7 @@ import {
 
 import ProductsComponent from "./Products";
 import ProductComponent from "./Product";
-import { fetchProducts, mockOptions } from "./api";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | ''
 
@@ -33,18 +32,6 @@ export type Product = {
   options?: ProductOption[]
 }
 
-export type ProductContextType = {
-  products: Product[]
-  selectProduct: (product: Product | {}) => void
-  selectedProduct: Product | {}
-  selectOption: (option: ProductOption) => void
-  selectedOption: ProductOption
-  selectSize: (size: Size) => void
-  selectedSize: Size
-}
-
-export const ProductContext = createContext<ProductContextType>({} as ProductContextType);
-
 export const routes = [
   {
     path: "/",
@@ -60,26 +47,16 @@ export const routes = [
   }
 ]
 const router = createBrowserRouter(routes);
+const queryClient = new QueryClient()
 
 function App() {
-  const [products, setProducts] = useState<Product[] | []>([])
-  const [selectedProduct, setSelectedProduct] = useState<Product | {}>({})
-  const [selectedOption, setSelectedOption] = useState<ProductOption>(mockOptions[0])
-  const [selectedSize, setSelectedSize] = useState<Size>('')
-
-  useEffect(() => {
-    (async function call() {
-      setProducts(await fetchProducts())
-    })()
-  }, [])
 
   return (
-    <ProductContext.Provider value={{ products, selectProduct: setSelectedProduct, selectedProduct, selectOption: setSelectedOption, selectedOption, selectSize: setSelectedSize, selectedSize }}>
+    <QueryClientProvider client={queryClient}>
       <main>
         <RouterProvider router={router} />
       </main>
-    </ProductContext.Provider>
-
+    </QueryClientProvider>
   );
 }
 

@@ -1,13 +1,13 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, render } from '@testing-library/react';
 import { RouterProvider } from "react-router-dom"
 import { act } from "react-dom/test-utils"
 
-import { customRender, selectedProductState, router } from "./sharedTest"
+import { selectedProductState, router } from "./sharedTest"
 import { mockOptions } from './api';
 
 describe('ProductOption allows users to select product options', () => {
   it('should display the product options', () => {
-    customRender(<RouterProvider router={router} />, selectedProductState)
+    render(<RouterProvider router={router} />)
     act(() => {
       router.navigate('/product/1')
     })
@@ -18,7 +18,7 @@ describe('ProductOption allows users to select product options', () => {
   })
 
   it('should display the sizes available from the product option selected', () => {
-    customRender(<RouterProvider router={router} />, selectedProductState)
+    render(<RouterProvider router={router} />)
     act(() => {
       router.navigate('/product/1')
     })
@@ -32,7 +32,7 @@ describe('ProductOption allows users to select product options', () => {
   })
 
   it('should display the unavailable sizes with disabled buttons', () => {
-    customRender(<RouterProvider router={router} />, selectedProductState)
+    render(<RouterProvider router={router} />)
     act(() => {
       router.navigate('/product/1')
     })

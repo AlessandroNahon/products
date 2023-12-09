@@ -1,8 +1,8 @@
 /* eslint-disable testing-library/no-node-access */
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within, render } from '@testing-library/react';
 
 import { RouterProvider } from 'react-router-dom'
-import { customRender, selectedProductState, router, defaultState } from './sharedTest';
+import { router } from './sharedTest';
 
 const mockedNavigate = jest.fn();
 
@@ -26,7 +26,7 @@ afterEach(() => {
 describe('Products in the products route', () => {
 
   it('displays the product on the page', () => {
-    customRender(<RouterProvider router={router} />, defaultState)
+    render(<RouterProvider router={router} />)
 
     const product1 = within(screen.getByTestId('section')).getByTestId('product-1').lastChild?.textContent
 
@@ -34,7 +34,7 @@ describe('Products in the products route', () => {
   })
 
   it('routes to the product page with the selected id', async () => {
-    customRender(<RouterProvider router={router} />, selectedProductState)
+    render(<RouterProvider router={router} />)
 
     expect(router.state.location.pathname).toEqual('/products')
 
