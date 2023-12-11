@@ -8,7 +8,7 @@ export default function Products() {
 	const navigate = useNavigate()
 
 	if (!products) {
-		return <div data-testid='empty-section'></div>
+		return <div data-testid='empty-section' />
 	}
 
 	return (
