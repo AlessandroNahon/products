@@ -1,16 +1,9 @@
 /* eslint-disable testing-library/no-node-access */
-import {
-	fireEvent,
-	render,
-	renderHook,
-	screen,
-	waitFor,
-} from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import { router, wrapper } from '../sharedTest'
 
 import { queryClient } from '../App'
-import { useFetchProducts } from '../hooks'
 
 const mockedNavigate = jest.fn()
 
@@ -38,7 +31,7 @@ describe('Products', () => {
 	})
 
 	it('displays the product on the page', async () => {
-		renderHook(() => useFetchProducts(), { wrapper })
+		render(wrapper())
 
 		const sect = await screen.findByTestId('section')
 		const product1 = sect.firstChild?.textContent
@@ -47,7 +40,7 @@ describe('Products', () => {
 	})
 
 	it('routes to the product page with the selected id', async () => {
-		renderHook(() => useFetchProducts(), { wrapper })
+		render(wrapper())
 
 		expect(router.state.location.pathname).toEqual('/products')
 
