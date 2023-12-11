@@ -7,7 +7,7 @@ import { products as mockProducts } from '../testData'
 
 describe('Product', () => {
 	it('should display the product', async () => {
-		render(wrapper())
+		render(wrapper)
 		act(() => {
 			router.navigate(`/product/${mockProducts[1].id}`)
 		})

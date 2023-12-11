@@ -22,13 +22,11 @@ export const router = createMemoryRouter(routes, {
 	initialIndex: 0,
 })
 
-export const wrapper = () => {
-	return (
-		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
-		</QueryClientProvider>
-	)
-}
+export const wrapper = (
+	<QueryClientProvider client={queryClient}>
+		<RouterProvider router={router} />
+	</QueryClientProvider>
+)
 
 export const productOptionContent = (
 	<QueryClientProvider client={queryClient}>

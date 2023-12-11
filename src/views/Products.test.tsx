@@ -23,7 +23,7 @@ afterEach(() => {
 
 describe('Products', () => {
 	it('displays nothing if the products are not there', async () => {
-		render(wrapper())
+		render(wrapper)
 
 		const emptyDiv = screen.getByTestId('empty-section')
 
@@ -31,7 +31,7 @@ describe('Products', () => {
 	})
 
 	it('displays the product on the page', async () => {
-		render(wrapper())
+		render(wrapper)
 
 		const sect = await screen.findByTestId('section')
 		const product1 = sect.firstChild?.textContent
@@ -40,7 +40,7 @@ describe('Products', () => {
 	})
 
 	it('routes to the product page with the selected id', async () => {
-		render(wrapper())
+		render(wrapper)
 
 		expect(router.state.location.pathname).toEqual('/products')
 

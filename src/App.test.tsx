@@ -8,7 +8,7 @@ afterEach(() => {
 
 describe('App renders', () => {
 	it('lands on root route and then reroutes to products page', () => {
-		render(wrapper())
+		render(wrapper)
 		act(() => {
 			router.navigate('/')
 		})
