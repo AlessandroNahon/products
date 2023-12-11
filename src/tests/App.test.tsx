@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react'
 
-import { router, wrapper } from './sharedTest'
+import { router, wrapper } from '../sharedTest'
 
 afterEach(() => {
 	jest.restoreAllMocks()
