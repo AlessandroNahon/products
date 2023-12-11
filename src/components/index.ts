@@ -1,6 +1,6 @@
 import Error from './Error'
 import Image from './Image'
-import ProductOption from './ProductOption'
 import ProductLoading from './ProductLoading'
+import ProductOption from './ProductOption'
 
-export { Error, Image, ProductOption, ProductLoading }
+export { Error, Image, ProductLoading, ProductOption }

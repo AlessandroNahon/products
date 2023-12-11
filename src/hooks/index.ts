@@ -1,4 +1,4 @@
-import useFetchProducts from './useFetchProducts'
 import useFetchProduct from './useFetchProduct'
+import useFetchProducts from './useFetchProducts'
 
-export { useFetchProducts, useFetchProduct }
+export { useFetchProduct, useFetchProducts }

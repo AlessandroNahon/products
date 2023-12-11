@@ -8,11 +8,7 @@ export async function fetchProducts(): Promise<Product[]> {
 	return await res.json()
 }
 
-export async function fetchProduct(id: string | undefined): Promise<Product> {
-	if (!id) {
-		return {} as Product
-	}
-
+export async function fetchProduct(id: string): Promise<Product> {
 	const url = swapIdParam(GET_PRODUCT, parseInt(id))
 	if (!url) {
 		return {} as Product
