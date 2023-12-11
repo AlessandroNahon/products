@@ -1,7 +1,6 @@
-/* eslint-disable testing-library/no-node-access */
 import { act, render } from '@testing-library/react';
 
-import { router, content } from './sharedTest';
+import { router, wrapper } from './sharedTest';
 
 afterEach(() => {
   jest.restoreAllMocks();
@@ -9,7 +8,7 @@ afterEach(() => {
 
 describe('App renders', () => {
   it('lands on root route and then reroutes to products page', () => {
-    render(content())
+    render(wrapper())
     act(() => {
       router.navigate('/')
     })

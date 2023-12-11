@@ -1,29 +1,17 @@
-import { Size, routes } from './App'
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+
 import { mockOptions } from './api'
 
-import { RouterProvider, createMemoryRouter } from 'react-router-dom';
-import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
 import { ProductOption } from './components';
+import { Size, routes, queryClient } from './App'
 
 export const router = createMemoryRouter(routes, {
   initialEntries: ["/", "/products"],
   initialIndex: 0,
 });
 
-export const testQueryCache = new QueryCache();
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      refetchOnWindowFocus: false,
-    },
-  },
-  queryCache: testQueryCache,
-});
-
-function Wrapper() {
+export const wrapper = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
@@ -31,13 +19,7 @@ function Wrapper() {
   )
 }
 
-export const wrapper = Wrapper
-
-export const content = () => <QueryClientProvider client={queryClient}>
-  <RouterProvider router={router} />
-</QueryClientProvider>
-
-export const mockBaseProps = {
+export const mockProductOptionProps = {
   selectedSize: '' as Size,
   selectedOption: {
     label: mockOptions[0].label,
@@ -49,5 +31,5 @@ export const mockBaseProps = {
 };
 
 export const productOptionContent = <QueryClientProvider client={queryClient}>
-  <ProductOption {...mockBaseProps} />
+  <ProductOption {...mockProductOptionProps} />
 </QueryClientProvider>

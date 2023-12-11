@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { productOptionContent, mockBaseProps } from "../sharedTest"
+import { productOptionContent, mockProductOptionProps } from "../sharedTest"
 import { mockOptions } from '../api';
 
 describe('ProductOption allows users to select product options', () => {
@@ -20,8 +20,8 @@ describe('ProductOption allows users to select product options', () => {
 
     fireEvent.click(buttons[1])
 
-    await waitFor(() => expect(mockBaseProps.setSelectedOption).toHaveBeenCalledWith(mockOptions[1]))
-    await waitFor(() => expect(mockBaseProps.setSelectedSize).toHaveBeenCalledWith(''))
+    await waitFor(() => expect(mockProductOptionProps.setSelectedOption).toHaveBeenCalledWith(mockOptions[1]))
+    await waitFor(() => expect(mockProductOptionProps.setSelectedSize).toHaveBeenCalledWith(''))
   })
 
   it('should display the unavailable sizes with disabled buttons', async () => {

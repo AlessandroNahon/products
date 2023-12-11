@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/no-node-access */
 import { fireEvent, screen, waitFor, render, renderHook } from '@testing-library/react'
 
-import { router, content, testQueryCache, wrapper } from '../sharedTest'
+import { router, wrapper } from '../sharedTest'
 
 import { useFetchProducts } from '../hooks'
 import { queryClient } from '../App'
@@ -21,13 +21,12 @@ beforeEach(() => {
 afterEach(() => {
   jest.restoreAllMocks()
   queryClient.clear()
-  testQueryCache.clear()
 })
 
 describe('The Products component renders', () => {
 
   it('displays nothing if the products are not there', async () => {
-    render(content())
+    render(wrapper())
 
     const emptyDiv = screen.getByTestId('empty-section')
 
