@@ -12,7 +12,7 @@ export default function Product() {
 	)
 	const [selectedSize, setSelectedSize] = useState<Size>('')
 
-	const { data } = useFetchProduct()
+	const { data: product } = useFetchProduct()
 
 	return (
 		<section
@@ -26,8 +26,8 @@ export default function Product() {
 				/>
 			</div>
 			<div className='w-2/5'>
-				<h2 className='text-2xl font-bold mb-5'>{data.title}</h2>
-				<h3 className='text-xl mb-10'>${data.price}</h3>
+				<h2 className='text-2xl font-bold mb-5'>{product.title}</h2>
+				<h3 className='text-xl mb-10'>${product.price}</h3>
 				<ProductOption
 					selectedOption={selectedOption}
 					setSelectedOption={setSelectedOption}

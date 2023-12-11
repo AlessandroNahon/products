@@ -4,10 +4,10 @@ import { Image } from '../components'
 import { useFetchProducts } from '../hooks'
 
 export default function Products() {
-	const { data } = useFetchProducts()
+	const { data: products } = useFetchProducts()
 	const navigate = useNavigate()
 
-	if (!data) {
+	if (!products) {
 		return <div data-testid='empty-section'></div>
 	}
 
@@ -16,7 +16,7 @@ export default function Products() {
 			data-testid='section'
 			className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-stretch auto-rows-max sm:p-10 md:p-15 lg:p-20'
 		>
-			{data?.map((p: any) => (
+			{products?.map((p: any) => (
 				<div
 					data-testid={`product-${p.id}`}
 					key={p.id}
