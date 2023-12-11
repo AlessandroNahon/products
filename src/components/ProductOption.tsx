@@ -1,7 +1,8 @@
 import { type ReactElement } from 'react'
-import { mockOptions } from './api'
-import { ProductOption as ProductOptionType, Size } from './App'
 
+import { mockOptions } from '../api'
+
+import { ProductOption as ProductOptionType, Size } from '../App'
 import Image from './Image'
 
 const sizes: Size[] = ['xs', 'sm', 'md', 'lg', 'xl']

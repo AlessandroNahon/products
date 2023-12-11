@@ -1,12 +1,13 @@
+import { Suspense } from "react";
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-
-import ProductsComponent from "./Products";
-import ProductComponent from "./Product";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { Error } from "./components";
+import { ProductLoading, Product as ProductComponent, Products as ProductsComponent } from "./views";
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | ''
 
@@ -39,15 +40,15 @@ export const routes = [
   },
   {
     path: "/products",
-    element: <ProductsComponent />,
+    element: <Error><ProductsComponent /></Error>,
   },
   {
     path: "/product/:id",
-    element: <ProductComponent />
+    element: <Suspense fallback={<ProductLoading />}><ProductComponent /></Suspense>
   }
 ]
 const router = createBrowserRouter(routes);
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 function App() {
   return (

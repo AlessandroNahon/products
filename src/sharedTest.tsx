@@ -1,24 +1,53 @@
-import { routes } from './App'
-import { products } from './testData'
+import { Size, routes } from './App'
 import { mockOptions } from './api'
 
-import { createMemoryRouter } from 'react-router-dom';
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const selectProduct = jest.fn()
-const selectOption = jest.fn()
-const selectSize = jest.fn()
-
-export const selectedProductState = {
-  products,
-  selectProduct,
-  selectedProduct: products[0],
-  selectOption,
-  selectedOption: mockOptions[0],
-  selectSize,
-  selectedSize: mockOptions[0].availableSizes[0],
-}
+import { ProductOption } from './components';
 
 export const router = createMemoryRouter(routes, {
   initialEntries: ["/", "/products"],
-  initialIndex: 1,
+  initialIndex: 0,
 });
+
+export const testQueryCache = new QueryCache();
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+  queryCache: testQueryCache,
+});
+
+function Wrapper() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  )
+}
+
+export const wrapper = Wrapper
+
+export const content = () => <QueryClientProvider client={queryClient}>
+  <RouterProvider router={router} />
+</QueryClientProvider>
+
+export const mockBaseProps = {
+  selectedSize: '' as Size,
+  selectedOption: {
+    label: mockOptions[0].label,
+    image: mockOptions[0].image,
+    availableSizes: mockOptions[0].availableSizes,
+  },
+  setSelectedOption: jest.fn(),
+  setSelectedSize: jest.fn(),
+};
+
+export const productOptionContent = <QueryClientProvider client={queryClient}>
+  <ProductOption {...mockBaseProps} />
+</QueryClientProvider>
