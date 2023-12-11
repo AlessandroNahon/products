@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { productOptionContent, mockProductOptionProps } from "../sharedTest"
 import { mockOptions } from '../api';
 
-describe('ProductOption allows users to select product options', () => {
+describe('ProductOption', () => {
 
   it('should display the product options', async () => {
     render(productOptionContent)

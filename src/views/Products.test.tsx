@@ -15,7 +15,6 @@ jest.mock('react-router-dom', () => ({
 
 beforeEach(() => {
   mockedNavigate.mockReset()
-
 })
 
 afterEach(() => {
@@ -23,7 +22,7 @@ afterEach(() => {
   queryClient.clear()
 })
 
-describe('The Products component renders', () => {
+describe('Products', () => {
 
   it('displays nothing if the products are not there', async () => {
     render(wrapper())

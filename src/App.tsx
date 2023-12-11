@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { Error } from "./components";
-import { ProductLoading, Product as ProductComponent, Products as ProductsComponent } from "./views";
+import { Error, ProductLoading } from "./components";
+import { Product as ProductComponent, Products as ProductsComponent } from "./views";
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | ''
 

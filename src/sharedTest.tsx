@@ -5,6 +5,7 @@ import { mockOptions } from './api'
 
 import { ProductOption } from './components';
 import { Size, routes, queryClient } from './App'
+import { Product } from './views';
 
 export const router = createMemoryRouter(routes, {
   initialEntries: ["/", "/products"],
@@ -30,6 +31,11 @@ export const mockProductOptionProps = {
   setSelectedSize: jest.fn(),
 };
 
+export const productContent = () => <QueryClientProvider client={queryClient}>
+  <Product />
+</QueryClientProvider>
+
 export const productOptionContent = <QueryClientProvider client={queryClient}>
   <ProductOption {...mockProductOptionProps} />
 </QueryClientProvider>
+
